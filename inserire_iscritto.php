@@ -20,3 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Location: dashboard.php');
     exit;
 }
+
+$corsi = $conn->query("SELECT id_corso, nome_corso FROM Corsi");
+$membri = $conn->query("SELECT id_membro, CONCAT(nome, ' ', cognome) AS nome FROM Membri");
+?>
