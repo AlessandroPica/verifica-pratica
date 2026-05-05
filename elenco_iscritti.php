@@ -29,3 +29,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
 }
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elenco Iscritti</title>
+</head>
+<body>
+    <h1>Elenco Iscritti</h1>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Corso</th>
+            <th>Cambia Corso</th>
+        </tr>
+        <?php while ($row = $iscritti->fetch_assoc()): ?>
+            <tr>
+                <td><?= $row['nome_membro'] ?></td>
+                <td><?= $row['cognome_membro'] ?></td>
+                <td><?= $row['nome_corso'] ?></td>
+                <td>
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="id_iscrizione" value="<?= $row['id_iscrizione'] ?>">
+                        <select name="nuovo_corso">
+                            <?php
+                            $corsi->data_seek(0);
+                            while ($corso = $corsi->fetch_assoc()): ?>
+                                <option value="<?= $corso['id_corso'] ?>"><?= $corso['nome_corso'] ?></option>
+                            <?php endwhile; ?>
+                        </select>
+                        <button type="submit">Cambia</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
