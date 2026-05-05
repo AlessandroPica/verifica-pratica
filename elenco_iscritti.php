@@ -15,3 +15,17 @@ $query = "
 $iscritti = $conn->query($query);
 
 $corsi = $conn->query("SELECT id_corso, nome_corso FROM Corsi");
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id_iscrizione = $_POST['id_iscrizione'];
+    $nuovo_corso = $_POST['nuovo_corso'];
+
+    $stmt = $conn->prepare("UPDATE Iscrizioni_Corsi SET id_corso = ? WHERE id_iscrizione = ?");
+    $stmt->bind_param("ii", $nuovo_corso, $id_iscrizione);
+    $stmt->execute();
+    $stmt->close();
+
+    header('Location: elenco_iscritti.php');
+    exit;
+}
+?>
