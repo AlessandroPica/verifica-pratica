@@ -17,3 +17,26 @@ $query = "
 ";
 $result = $conn->query($query);
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Corso con più iscritti</title>
+</head>
+<body>
+    <h1>Corso con più iscritti</h1>
+    <table>
+        <tr>
+            <th>Istruttore</th>
+            <th>Corso</th>
+            <th>Iscritti</th>
+        </tr>
+        <?php while ($row = $result->fetch_assoc()): ?>
+            <tr>
+                <td><?= $row['nome'] . ' ' . $row['cognome'] ?></td>
+                <td><?= $row['nome_corso'] ?></td>
+                <td><?= $row['iscritti'] ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
