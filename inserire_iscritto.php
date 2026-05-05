@@ -24,3 +24,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $corsi = $conn->query("SELECT id_corso, nome_corso FROM Corsi");
 $membri = $conn->query("SELECT id_membro, CONCAT(nome, ' ', cognome) AS nome FROM Membri");
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inserisci Iscritto</title>
+</head>
+<body>
+    <form method="POST">
+        <label>Corso:</label>
+        <select name="id_corso">
+            <?php while ($corso = $corsi->fetch_assoc()): ?>
+                <option value="<?= $corso['id_corso'] ?>"><?= $corso['nome_corso'] ?></option>
+            <?php endwhile; ?>
+        </select>
+        <label>Membro:</label>
+        <select name="id_membro">
+            <?php while ($membro = $membri->fetch_assoc()): ?>
+                <option value="<?= $membro['id_membro'] ?>"><?= $membro['nome'] ?></option>
+            <?php endwhile; ?>
+        </select>
+        <label>Data Iscrizione:</label>
+        <input type="date" name="data_iscrizione" required>
+        <label>Orario Preferito:</label>
+        <input type="time" name="orario_preferito" required>
+        <button type="submit">Inserisci</button>
+    </form>
+</body>
+</html>
